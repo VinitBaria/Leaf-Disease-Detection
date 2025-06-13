@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    
+    <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+   
+    <style>
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Background animation */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating bubbles */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+        
+        /*=============== LOGIN ===============*/
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            transition: all 0.5s;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login__title {
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            text-align: center;
+            color: #2ecc71;
+            font-weight: bold;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .login__title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: #2ecc71;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        .login__area {
+            width: 100%;
+        }
+        
+        .login__form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        
+        .login__content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        
+        .login__box {
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .login__box:focus-within {
+            transform: scale(1.02);
+        }
+        
+        .login__input {
+            width: 100%;
+            padding: 1.1rem 1rem 1.1rem 3rem;
+            border: 1px solid #ddd;
+            border-radius: 0.8rem;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .login__input:focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+            background: white;
+        }
+        
+        .login__label {
+            position: absolute;
+            left: 3rem;
+            top: 1.1rem;
+            color: #777;
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .login__input:focus + .login__label,
+        .login__input:not(:placeholder-shown) + .login__label {
+            transform: translateY(-1.8rem) translateX(-1.5rem) scale(0.8);
+            background: white;
+            padding: 0 0.6rem;
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        
+        .login__icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+        
+        .login__box:focus-within .login__icon {
+            color: #2ecc71;
+        }
+        
+        .login__password {
+            cursor: pointer;
+            right: 1.2rem;
+            left: auto;
+        }
+        
+        .login__forgot {
+            text-align: right;
+            font-size: 0.85rem;
+            color: #777;
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-top: -0.5rem;
+            display: block;
+        }
+        
+        .login__forgot:hover {
+            color: #2ecc71;
+            text-decoration: underline;
+        }
+        
+        .login__button {
+            padding: 1.2rem;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login__button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .login__button:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+        
+        .login__button:hover::before {
+            left: 100%;
+        }
+        
+        .login__button:active {
+            transform: translateY(0);
+        }
+        
+        .login__social {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .login__social-title {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        
+        .login__social-title::before,
+        .login__social-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 35%;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .login__social-title::before {
+            left: 0;
+        }
+        
+        .login__social-title::after {
+            right: 0;
+        }
+        
+        .login__social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .login__social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .login__social-link:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .login__social-img {
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: transform 0.3s;
+        }
+        
+        .login__social-link:hover .login__social-img {
+            transform: scale(1.1);
+        }
+        
+        .login__switch {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #777;
+            margin-top: 0.5rem;
+        }
+        
+        .login__switch button {
+            background: none;
+            border: none;
+            color: #2ecc71;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0.3rem 0.6rem;
+        }
+        
+        .login__switch button:hover {
+            color: #27ae60;
+            text-decoration: underline;
+        }
+        
+        /* Hide register form by default */
+        .login__register {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Bubbles -->
+    <div class="bubbles" id="bubbles"></div>
+    
+    <!--=============== LOGIN ===============-->
+    <div class="login-container animate__animated animate__fadeIn" id="loginAccessRegister">
+        <!--===== LOGIN ACCESS =====-->
+        <div class="login__access">
+            <h1 class="login__title">Welcome Back</h1>
+            
+            <div class="login__area">
+                <form action="/login" method="POST" class="login__form" id="loginForm">
+                    <div class="login__content">
+                        <div class="login__box">
+                            <input type="email" id="email" name="email" required placeholder=" " class="login__input">
+                            <label for="email" class="login__label">Email</label>
+                            <i class="ri-mail-fill login__icon"></i>
+                        </div>
+            
+                        <div class="login__box">
+                            <i class="ri-lock-fill login__icon"></i>
+                            <input type="password" id="password" name="password" required placeholder=" " class="login__input">
+                            <label for="password" class="login__label" >Password</label>
+                          
+                            <i class="ri-eye-off-fill login__icon login__password" id="loginPassword"></i>
+                        </div>
+                    </div>
+            
+                    <a href="#" class="login__forgot">Forgot your password?</a>
+            
+                    <button type="submit" class="login__button">Sign In</button>
+                </form>
+        
+                <div class="login__social">
+                    <p class="login__social-title">Or login with</p>
+        
+                    <div class="login__social-links">
+                        <a href="#" class="login__social-link">
+                            <i class="ri-google-fill login__social-img" style="color: #DB4437; font-size: 1.5rem;"></i>
+                        </a>
+                        <a href="#" class="login__social-link">
+                            <i class="ri-facebook-fill login__social-img" style="color: #4267B2; font-size: 1.5rem;"></i>
+                        </a>
+                        <a href="#" class="login__social-link">
+                            <i class="ri-apple-fill login__social-img" style="color: #000; font-size: 1.5rem;"></i>
+                        </a>
+                    </div>
+                </div>
+        
+                <p class="login__switch">
+                    Don't have an account? 
+                    <button id="loginButtonRegister" class="animate__animated animate__pulse">Create Account</button>
+                </p>
+            </div>
+        </div>
+        
+        <!--===== REGISTER =====-->
+        <div class="login__register">
+            <h1 class="login__title">Create Account</h1>
+            
+            <div class="login__area">
+                <form action="/register" method="POST" class="login__form" id="registerForm">
+                    <div class="login__content">
+                        <div class="login__box">
+                            <input type="text" id="names" name="names" required placeholder=" " class="login__input">
+                            <label for="names" class="login__label">Full Name</label>
+                            <i class="ri-user-fill login__icon"></i>
+                        </div>
+                        
+                        <div class="login__box">
+                            <input type="email" id="emailCreate" name="emailCreate" required placeholder=" " class="login__input">
+                            <label for="emailCreate" class="login__label">Email</label>
+                            <i class="ri-mail-fill login__icon"></i>
+                        </div>
+            
+                        <div class="login__box">
+                            <input type="password" id="passwordCreate" name="passwordCreate" required placeholder=" " class="login__input">
+                            <label for="passwordCreate" class="login__label">Password</label>
+                            <i class="ri-lock-fill login__icon"></i>
+                            <i class="ri-eye-off-fill login__icon login__password" id="registerPassword"></i>
+                        </div>
+
+                        <div class="login__box">
+                            <input type="password" id="passwordConfirm" name="passwordConfirm" required placeholder=" " class="login__input">
+                            <label for="passwordConfirm" class="login__label">Confirm Password</label>
+                            <i class="ri-lock-fill login__icon"></i>
+                            <i class="ri-eye-off-fill login__icon login__password" id="registerPasswordConfirm"></i>
+                        </div>
+                    </div>
+            
+                    <button type="submit" class="login__button">Sign Up</button>
+                </form>
+        
+                <div class="login__social">
+                    <p class="login__social-title">Or sign up with</p>
+        
+                    <div class="login__social-links">
+                        <a href="#" class="login__social-link">
+                            <i class="ri-google-fill login__social-img" style="color: #DB4437; font-size: 1.5rem;"></i>
+                        </a>
+                        <a href="#" class="login__social-link">
+                            <i class="ri-facebook-fill login__social-img" style="color: #4267B2; font-size: 1.5rem;"></i>
+                        </a>
+                        <a href="#" class="login__social-link">
+                            <i class="ri-apple-fill login__social-img" style="color: #000; font-size: 1.5rem;"></i>
+                        </a>
+                    </div>
+                </div>
+        
+                <p class="login__switch">
+                    Already have an account? 
+                    <button id="loginButtonAccess" class="animate__animated animate__pulse">Sign In</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!--=============== MAIN JS ===============-->
+    <script>
+        // Your existing JavaScript for bubbles, toggle forms, and password visibility remains unchanged
+        // Create random bubbles
+        function createBubbles() {
+            const bubbles = document.getElementById('bubbles');
+            const count = 20;
+            
+            for (let i = 0; i < count; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                bubble.style.left = `${Math.random() * 100}%`;
+                
+                const delay = Math.random() * 8;
+                const duration = Math.random() * 10 + 8;
+                bubble.style.animationDelay = `${delay}s`;
+                bubble.style.animationDuration = `${duration}s`;
+                
+                bubbles.appendChild(bubble);
+            }
+        }
+        
+        // Toggle between login and register forms with animation
+        const loginButtonRegister = document.getElementById('loginButtonRegister');
+        const loginButtonAccess = document.getElementById('loginButtonAccess');
+        const loginAccess = document.querySelector('.login__access');
+        const loginRegister = document.querySelector('.login__register');
+        const loginContainer = document.querySelector('.login-container');
+        
+        loginButtonRegister.addEventListener('click', () => {
+            loginContainer.classList.add('animate__animated', 'animate__fadeOut');
+            setTimeout(() => {
+                loginAccess.style.display = 'none';
+                loginRegister.style.display = 'block';
+                loginContainer.classList.remove('animate__fadeOut');
+                loginContainer.classList.add('animate__fadeIn');
+            }, 300);
+        });
+        
+        loginButtonAccess.addEventListener('click', () => {
+            loginContainer.classList.add('animate__animated', 'animate__fadeOut');
+            setTimeout(() => {
+                loginRegister.style.display = 'none';
+                loginAccess.style.display = 'block';
+                loginContainer.classList.remove('animate__fadeOut');
+                loginContainer.classList.add('animate__fadeIn');
+            }, 300);
+        });
+        
+        // Toggle password visibility with animation
+        const togglePassword = (buttonId, inputId) => {
+            const button = document.getElementById(buttonId);
+            const input = document.getElementById(inputId);
+            
+            button.addEventListener('click', () => {
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                
+                if (isPassword) {
+                    button.className = 'ri-eye-fill login__icon login__password';
+                    button.classList.add('animate__animated', 'animate__fadeIn');
+                } else {
+                    button.className = 'ri-eye-off-fill login__icon login__password';
+                    button.classList.add('animate__animated', 'animate__fadeIn');
+                }
+                
+                setTimeout(() => {
+                    button.classList.remove('animate__animated', 'animate__fadeIn');
+                }, 500);
+            });
+        };
+        
+        togglePassword('loginPassword', 'password');
+        togglePassword('registerPassword', 'passwordCreate');
+        togglePassword('registerPasswordConfirm', 'passwordConfirm');
+
+        // Form input animation
+        const inputs = document.querySelectorAll('.login__input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    input.parentElement.classList.remove('animate__animated', 'animate__pulse');
+                }, 500);
+            });
+        });
+
+        // Button animation on hover
+        const buttons = document.querySelectorAll('.login__button');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.classList.add('animate__animated', 'animate__pulse');
+            });
+            button.addEventListener('mouseleave', () => {
+                setTimeout(() => {
+                    button.classList.remove('animate__animated', 'animate__pulse');
+                }, 500);
+            });
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const button = e.target.querySelector('.login__button');
+            button.innerHTML = '<i class="ri-loader-4-line animate__animated animate__spin"></i> Signing In...';
+            button.disabled = true;
+            
+            try {
+                const formData = new FormData(e.target);
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'follow'
+                });
+                
+                if (response.redirected) {
+                    window.location.href = response.url;  // Redirect to /index
+                } else {
+                    const result = await response.json();
+                    showNotification(result.error || 'Login failed', 'error');
+                    button.innerHTML = 'Sign In';
+                    button.disabled = false;
+                }
+            } catch (error) {
+                showNotification('Network error, please try again', 'error');
+                button.innerHTML = 'Sign In';
+                button.disabled = false;
+            }
+        });
+
+        // Registration form submission
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const button = e.target.querySelector('.login__button');
+            const password = document.getElementById('passwordCreate').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+            if (password !== passwordConfirm) {
+                showNotification('Passwords do not match', 'error');
+                return;
+            }
+
+            button.innerHTML = '<i class="ri-loader-4-line animate__animated animate__spin"></i> Creating Account...';
+            button.disabled = true;
+            
+            try {
+                const formData = new FormData(e.target);
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'follow'
+                });
+                
+                if (response.redirected) {
+                    window.location.href = response.url;  // Redirect to / (login page)
+                } else {
+                    const result = await response.json();
+                    showNotification(result.error || 'Registration failed', 'error');
+                    button.innerHTML = 'Sign Up';
+                    button.disabled = false;
+                }
+            } catch (error) {
+                showNotification('Network error, please try again', 'error');
+                button.innerHTML = 'Sign Up';
+                button.disabled = false;
+            }
+        });
+
+        // Notification function
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type} animate__animated animate__fadeInDown`;
+            notification.innerHTML = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('animate__fadeInDown');
+                notification.classList.add('animate__fadeOutUp');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Create notification styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .notification {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 12px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+                z-index: 1000;
+            }
+            .notification.error {
+                background-color: #e74c3c;
+            }
+            .notification.success {
+                background-color: #2ecc71;
+            }
+            .animate__spin {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize bubbles on page load
+        window.addEventListener('load', createBubbles);
+    </script>
+</body>
+</html>

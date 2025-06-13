@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #f4f7f6, #e8f5e9); color: #333; line-height: 1.6; overflow-x: hidden; }
+        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease; }
+        .loader { border: 8px solid #e8f5e9; border-top: 8px solid #2ecc71; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        nav { background: linear-gradient(to right, #2ecc71, #27ae60); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        nav ul { list-style: none; display: flex; justify-content: center; align-items: center; }
+        nav ul li { margin: 0 25px; }
+        nav ul li a { color: #fff; text-decoration: none; font-weight: 600; font-size: 17px; padding: 8px 15px; border-radius: 25px; transition: all 0.3s ease; }
+        nav ul li a:hover { background: #27ae60; color: #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+        .slider { margin-top: 100px; position: relative; max-width: 900px; margin-left: auto; margin-right: auto; overflow: hidden; border-radius: 15px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; height: 450px; object-fit: cover; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(46, 204, 113, 0.8); color: white; border: none; padding: 15px; cursor: pointer; font-size: 20px; border-radius: 50%; transition: background 0.3s ease; }
+        .slider-btn:hover { background: #27ae60; }
+        #prev { left: 15px; }
+        #next { right: 15px; }
+        .importance { max-width: 900px; margin: 60px auto; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }
+        .importance:hover { transform: translateY(-5px); }
+        .importance h2 { color: #2ecc71; margin-bottom: 25px; font-size: 28px; text-align: center; }
+        .importance p { font-size: 17px; color: #666; text-align: justify; }
+        .prediction { max-width: 700px; margin: 60px auto; padding: 40px; background: #fff; border-radius: 15px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); text-align: center; transition: transform 0.3s ease; }
+        .prediction:hover { transform: translateY(-5px); }
+        .prediction h2 { color: #2ecc71; margin-bottom: 30px; font-size: 28px; }
+        .upload-container { display: flex; flex-direction: column; align-items: center; padding: 25px; border: 3px dashed #2ecc71; border-radius: 15px; background: #f9f9f9; transition: background 0.3s ease; }
+        .upload-container:hover { background: #e8f5e9; }
+        .upload-container input[type="file"] { margin: 15px 0; font-size: 16px; color: #333; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #fff; cursor: pointer; }
+        .upload-container button { background: #2ecc71; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-size: 17px; font-weight: 600; transition: all 0.3s ease; }
+        .upload-container button:hover { background: #27ae60; box-shadow: 0 0 15px rgba(46, 204, 113, 0.5); }
+        #result { margin-top: 30px; padding: 20px; background: #e8f5e9; border: 2px solid #2ecc71; border-radius: 10px; font-size: 17px; color: #333; text-align: left; display: none; transition: all 0.3s ease; }
+        #result.show { display: block; }
+        #result p { margin: 10px 0; }
+        #result p strong { color: #2ecc71; font-weight: 600; }
+        #result.error { background: #ffe6e6; border-color: #e74c3c; color: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}#slider">Gallery</a></li>
+            <li><a href="{{ url_for('index') }}#importance">Importance</a></li>
+            <li><a href="{{ url_for('index') }}#predict">Predict</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="slider" id="slider">
+        <div class="slides">
+            <img src="https://images8.alphacoders.com/407/407899.jpg" alt="Bacterial Leaf Blight" class="slide">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/047/385/522/small_2x/young-green-plants-sprouting-from-the-soil-with-the-sun-s-rays-c-free-photo.jpg" alt="Brown Spot" class="slide">
+            <img src="https://t3.ftcdn.net/jpg/06/84/31/80/360_F_684318013_1AeWQiVaehxuRi8xf7gylr93qf7xzixW.jpg" alt="Leaf Smut" class="slide">
+            <img src="https://images.pexels.com/photos/533982/pexels-photo-533982.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Rice Blast" class="slide">
+        </div>
+        <button class="slider-btn" id="prev"></button>
+        <button class="slider-btn" id="next">></button>
+    </div>
+
+    <section class="importance" id="importance">
+        <h2>Why This Matters</h2>
+        <p>Rice is a staple crop for billions worldwide, but diseases like Bacterial Leaf Blight, Brown Spot, Leaf Smut, and Rice Blast threaten yields and livelihoods. Early detection using tools like this can help farmers identify issues quickly, apply targeted treatments, and reduce crop losses.</p>
+    </section>
+
+    <section class="prediction" id="predict">
+        <h2>Predict Rice Disease</h2>
+        <div class="upload-container">
+            <input type="file" id="plantImage" accept="image/*">
+            <button onclick="uploadImage()">Predict</button>
+        </div>
+        <div id="result"></div>
+    </section>
+
+    <script>
+        window.addEventListener('load', () => {
+            const loading = document.getElementById('loading');
+            loading.style.opacity = '0';
+            setTimeout(() => loading.style.display = 'none', 500);
+        });
+
+        let currentSlide = 0;
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        });
+
+        function uploadImage() {
+            let fileInput = document.getElementById("plantImage");
+            let resultDiv = document.getElementById("result");
+
+            if (fileInput.files.length === 0) {
+                resultDiv.innerHTML = "<p>Please select an image file.</p>";
+                resultDiv.classList.remove("show", "error");
+                resultDiv.classList.add("show", "error");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            fetch("/predict", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultDiv.classList.remove("error");
+                if (data.error) {
+                    resultDiv.innerHTML = `<p>Error: ${data.error}</p>`;
+                    resultDiv.classList.add("show", "error");
+                } else {
+                    resultDiv.innerHTML = `
+                        <p><strong>Disease:</strong> ${data.disease}</p>
+                        <p><strong>Suggestion:</strong> ${data.suggestion}</p>
+                    `;
+                    resultDiv.classList.add("show");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                resultDiv.innerHTML = "<p>Failed to connect to the server.</p>";
+                resultDiv.classList.remove("show");
+                resultDiv.classList.add("show", "error");
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

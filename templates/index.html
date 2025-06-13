@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Health</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+   .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffd700;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        /* Existing Styles (Unchanged) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9f0e9;
+            color: #2e5b2e;
+            line-height: 1.6;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        /* .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0;
+            background: linear-gradient(to right, #2e5b2e, #4a8c4a);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        } */
+        .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 170px 0;
+    min-height: 650px;
+    background: linear-gradient(45deg, #2e5b2e, #4a8c4a);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    animation: gradientShift 6s infinite ease-in-out alternate;
+}
+
+/* Apply floating & scaling effect only to specific elements, not header or button */
+.hero .floating-element {
+    animation: floatScale 3s ease-in-out infinite alternate;
+}
+
+/* Background Gradient Animation */
+@keyframes gradientShift {
+    0% { background: linear-gradient(45deg, #2e5b2e, #4a8c4a); }
+    50% { background: linear-gradient(45deg, #4a8c4a, #2e5b2e); }
+    100% { background: linear-gradient(45deg, #2e5b2e, #4a8c4a); }
+}
+
+/* Floating + Scaling Animation */
+@keyframes floatScale {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-15px) scale(1.05); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* Wave Effect on Background */
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    top: -50%;
+    left: -50%;
+    border-radius: 50%;
+    animation: waveMotion 8s infinite linear;
+}
+
+@keyframes waveMotion {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: #e9f0e9;
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+        }
+        .hero-text {
+            max-width: 50%;
+        }
+        .hero-text h1 {
+            font-size: 60px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero-text h1 span {
+            color: #ffd700;
+        }
+        .hero-text p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #d3e0d3;
+        }
+        .hero .btn {
+            padding: 12px 30px;
+            background-color: #ffd700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .hero .btn:hover {
+            transform: scale(1.05);
+        }
+        .hero .btn.secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            margin-left: 10px;
+        }
+        .hero .info-box {
+            background: #ffffff;
+            color: #2e5b2e;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 35%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .hero .info-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .hero .info-box p {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .hero .info-box img {
+            max-width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .stats {
+            display: flex;
+           justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat h4 {
+            font-size: 24px;
+            color: #2e5b2e;
+        }
+        .stat p {
+            font-size: 12px;
+            color: #666;
+        }
+        .info-box .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #2e5b2e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .info-box .btn:hover {
+            background-color: #ffd700;
+            color: #2e5b2e;
+        }
+        .section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 300px;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            max-width: 50px;
+            margin-bottom: 15px;
+        }
+        .user-says .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .user-says .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .user-says .card {
+            min-width: 33.33%;
+            box-sizing: border-box;
+        }
+        .user-says .stars {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .carousel-btn.prev {
+            left: 0;
+        }
+        .carousel-btn.next {
+            right: 0;
+        }
+        .footer {
+            background-color: #2e5b2e;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer .grid {
+            margin-bottom: 20px;
+        }
+        .footer a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+        .footer a:hover {
+            color: #ffd700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            .hero .info-box {
+                max-width: 100%;
+            }
+            .hero-text h1 {
+                font-size: 36px;
+            }
+            .card {
+                min-width: 100%;
+            }
+            .user-says .card {
+                min-width: 100%;
+            }
+            .footer .grid {
+                flex-direction: column;
+            }
+        } 
+        /* New styles for horizontal cards */
+.row {
+    margin: 0 -5px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 0 10px;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 768px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}
+
+/* Update existing card styles to work with new layout */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    max-width: 150px;
+    margin-bottom: 15px;
+}
+
+/* Ensure cards maintain consistent height in row */
+.how-it-works .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.how-it-works .column {
+    flex: 1;
+    min-width: 300px;
+}
+/* Updated styles for how-it-works section */
+.how-it-works .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0 -10px;
+}
+
+.how-it-works .column {
+    flex: 1;
+    min-width: 300px;
+    padding: 0 10px;
+}
+
+.how-it-works .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Updated styles for how-it-works section */
+.how-it-works .card:hover {
+    transform: translateY(-5px);
+}
+
+/* Updated image container styles for larger SVGs */
+.how-it-works .image-container {
+    width: 100%;
+    height: 300px; /* Increased height to accommodate larger SVGs */
+    margin-bottom: 20px; /* Slightly more space below */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents overflow if SVGs exceed container */
+}
+
+.how-it-works .image-container img {
+    width: 250px; /* Increased base width */
+    height: 250px; /* Increased base height */
+    object-fit: contain; /* Maintains SVG crispness */
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+    color: #2e5b2e; /* Matches your theme's green color */
+}
+
+.how-it-works .card:hover .image-container img {
+    transform: scale(1.05); /* Slight scale on hover */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .how-it-works .column {
+        flex: 100%;
+        min-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .how-it-works .image-container {
+        height: 200px; /* Adjusted for tablet */
+    }
+    
+    .how-it-works .image-container img {
+        width: 180px; /* Reduced size for tablet */
+        height: 180px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .how-it-works .image-container {
+        height: 150px; /* Adjusted for mobile */
+    }
+    
+    .how-it-works .image-container img {
+        width: 120px; /* Reduced size for mobile */
+        height: 120px;
+    }
+}
+/* Enhanced carousel styles */
+.user-says .carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 20px 40px;
+}
+
+.user-says .carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.user-says .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-width: 33.33%; /* 3 cards visible on desktop */
+    flex-shrink: 0;
+    margin: 0 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.user-says .card:hover {
+    transform: translateY(-5px);
+}
+
+/* User photo styles */
+.user-says .user-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border: 3px solid #ffd700;
+}
+
+/* Stars and text styling */
+.user-says .stars {
+    color: #ffd700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.user-says .card p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.user-says .user-info {
+    font-size: 14px;
+    color: #2e5b2e;
+    font-weight: bold;
+}
+
+/* Carousel buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(46, 91, 46, 0.8); /* Matches theme green */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background: #ffd700; /* Gold on hover */
+    color: #2e5b2e;
+}
+
+.carousel-btn.prev {
+    left: 0;
+}
+
+.carousel-btn.next {
+    right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .user-says .card {
+        min-width: 50%; /* 2 cards on tablet */
+    }
+}
+
+@media (max-width: 480px) {
+    .user-says .card {
+        min-width: 100%; /* 1 card on mobile */
+    }
+    
+    .carousel-btn {
+        padding: 10px 15px;
+        font-size: 20px;
+    }
+    
+    .user-says .user-photo {
+        width: 80px;
+        height: 80px;
+    }
+}
+/* Updated categories grid styles */
+.categories .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categories .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, width 0.3s ease;
+    flex: 1;
+    min-width: 300px;
+    max-width: 360px; /* Limits card width for 3 per row */
+}
+
+.categories .card:hover {
+    transform: translateY(-5px);
+}
+
+.categories .card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.categories .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2e5b2e;
+}
+
+.categories .card p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Base responsive adjustments */
+@media (max-width: 1024px) {
+    .categories .card {
+        max-width: 45%; /* 2 cards per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .categories .card {
+        max-width: 100%; /* 1 card per row */
+    }
+}
+/* Categories section styles */
+.categories .grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categories .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, width 0.3s ease;
+    width: 360px; /* Fixed width */
+    height: 300px; /* Fixed height */
+    flex: 0 0 360px; /* Prevents flex growth/shrink */
+    box-sizing: border-box; /* Includes padding in dimensions */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures content fits consistently */
+    overflow: hidden; /* Prevents content overflow */
+}
+
+.categories .card:hover {
+    transform: translateY(-5px);
+}
+
+.categories .card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+.categories .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2e5b2e;
+    flex-shrink: 0; /* Prevents title from shrinking */
+}
+
+.categories .card p {
+    font-size: 16px;
+    color: #666;
+    flex-grow: 1; /* Allows text to fill remaining space */
+    margin: 0; /* Removes default margin */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .categories .card {
+        width: 48%; /* 2 cards per row */
+        flex: 0 0 48%;
+        height: 300px; /* Maintain height */
+    }
+}
+
+@media (max-width: 768px) {
+    .categories .card {
+        width: 100%; /* 1 card per row */
+        flex: 0 0 100%;
+        height: 300px; /* Maintain height */
+    }
+}
+/* Plant Disease Detection Section */
+.detect-disease {
+    background-color: #e9f0e9;
+    padding: 60px 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.2) 2%, transparent 0);
+    background-size: 50px 50px;
+}
+
+.detect-disease .container {
+    text-align: center;
+}
+
+.detect-disease h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #2e5b2e;
+}
+
+.detect-disease p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+.upload-section {
+    margin-bottom: 40px;
+}
+
+.upload-box {
+    background: #ffffff;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+.upload-box:hover {
+    border-color: #2e5b2e;
+}
+
+.upload-icon {
+    font-size: 40px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.upload-text {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.upload-subtext {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.choose-file-btn {
+    background-color: #2e5b2e;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.choose-file-btn:hover {
+    background-color: #ffd700;
+    color: #2e5b2e;
+}
+
+.tips-section {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.tips-section h3 {
+    font-size: 20px;
+    color: #2e5b2e;
+    margin-bottom: 15px;
+}
+
+.tips-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.tips-section li {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.tips-section li::before {
+    content: "✅";
+    position: absolute;
+    left: 0;
+    color: #2e5b2e;
+    height: 35px;
+    width: 35px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .upload-box {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .tips-section {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .detect-disease h2 {
+        font-size: 28px;
+    }
+
+    .upload-text {
+        font-size: 16px;
+    }
+
+    .upload-subtext {
+        font-size: 12px;
+    }
+}
+.footer {
+    background-color: #2e5b2e; /* Dark green theme */
+    color: #ffffff;
+    padding: 40px 0;
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.grid div {
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.grid p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 5px 0;
+    color: #e0e0e0;
+}
+
+.grid a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.grid a:hover {
+    color: #98c998; /* Light green on hover */
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #cccccc;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .grid div {
+        align-items: center;
+    }
+}
+#result {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #result h3 {
+            font-size: 24px;
+            color: #2e5b2e;
+            margin-bottom: 15px;
+        }
+
+        #result h4 {
+            font-size: 18px;
+            color: #2e5b2e;
+            margin: 15px 0 10px;
+        }
+
+        #result p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #result ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #result li {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        #result li::before {
+            content: "➡️";
+            position: absolute;
+            left: 0;
+            color: #2e5b2e;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .upload-box {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .tips-section, #result {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .detect-disease h1 {
+                font-size: 28px;
+            }
+
+            .upload-text {
+                font-size: 16px;
+            }
+
+            #result h3 {
+                font-size: 20px;
+            }
+
+            #result h4 {
+                font-size: 16px;
+            }
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+        }
+        iframe {
+            width: 560px;
+            height: 315px;
+            border: none;
+            margin-left: 90px;
+        }
+        .team {
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+    padding: 64px 0;
+}
+
+.team-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.team-heading {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 32px;
+    color: #2d3748;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.team-heading:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: #48bb78;
+    border-radius: 2px;
+}
+
+.team-subtitle {
+    text-align: center;
+    color: #2e5b2e;
+    margin-bottom: 48px;
+    font-size: 50px;
+    font-weight: bold;}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1024px;
+    margin-left: 400px;
+}
+
+.team-member {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.photo-frame {
+    position: relative;
+    padding: 8px;
+    background: linear-gradient(45deg, #e5d057, #81e6d9);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover .photo-frame {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.team-photo {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.member-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-top: 16px;
+    color: #2d3748;
+}
+
+.member-role {
+    color: #718096;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-member {
+        margin: 0 10px;
+    }
+    
+    .team-heading {
+        font-size: 32px;
+    }
+    
+    .photo-frame {
+        padding: 6px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Updated Navbar -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-green-800 flex items-center">
+                <span class="mr-2"><img src="https://img.icons8.com/?size=96&id=80791&format=png" height="35px" width="35px"><img></span> Plant.Health
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#home" class="nav-link text-green-800 font-medium">Home</a>
+                <a href="#home1" class="nav-link text-green-800 font-medium">Detect Disease</a> <!-- Updated href to #ab -->
+                <a href="#team" class="nav-link text-green-800 font-medium">About</a>
+                <a href="#signin" class="nav-link text-green-800 font-medium">Sign In</a>
+                <button class="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-yellow-400 hover:text-green-800 transition-all duration-300 transform hover:scale-105">
+                    Get Started
+                </button>
+            </nav>
+
+            <!-- Hamburger Icon for Mobile -->
+            <div class="md:hidden">
+                <button id="hamburger" class="text-green-800 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50">
+            <div class="flex justify-end p-4">
+                <button id="close-menu" class="text-green-800 focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <nav class="flex flex-col items-center space-y-6 mt-8">
+                <a href="#home" class="nav-link text-green-800 font-medium">Home</a>
+                <a href="#home1" class="nav-link text-green-800 font-medium">Detect Disease</a>
+                <a href="#team" class="nav-link text-green-800 font-medium">About</a>
+                <a href="#signin" class="nav-link text-green-800 font-medium">Sign In</a>
+                <button class="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-yellow-400 hover:text-green-800 transition-all duration-300 transform hover:scale-105">
+                    Get Started
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Rest of the page remains unchanged -->
+    <div class="hero" id="home">
+        <div class="container">
+            <div class="hero-text">
+                <h1>Keep Your Plants <span>Healthy & Thriving</span></h1>
+                <p>Instantly identify plant diseases with our AI-powered tool. Upload a photo and get accurate diagnosis and treatment recommendations.</p>
+                <button class="btn">Diagnose Your Plant</button>
+                <button class="btn secondary"><a id="#ab1">Learn More</a></button>
+            </div>
+        </div>
+    </div>
+<div style="background-color:whitesmoke;height: 900px;width: 100%;">
+    <div class="section how-it-works">
+        <div class="container">
+            <div class="section how-it-works">
+                <div class="container">
+                    <h1 style="font-weight: bold; font-size:70px;">How It Works</h1>
+                    <p>Our plant disease detection system provides accurate diagnosis and treatment recommendations in just a few simple steps.</p>
+                    <div class="row">
+                        <div class="column">
+                            <div class="card">
+                                <div class="image-container">
+                                    <img src="https://www.svgrepo.com/show/530613/camera.svg" alt="Upload Icon">
+                                </div>
+                                <h1 style="color: black;align-items: center;font-size: 30px;margin-bottom: 20px;">Upload A Photo</h1>
+                                <p>Take a clear photo of the affected part of your plant and upload it to our system.</p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <div class="image-container">
+                                    <img src="https://www.svgrepo.com/show/397504/microscope.svg" alt="Analysis Icon">
+                                </div>
+                                <h1 style="color: black;align-items: center;font-size: 30px;margin-bottom: 20px;">AI Analysis</h1>
+                                <p>Our advanced AI model analyzes the image to identify patterns and symptoms of diseases.</p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card">
+                                <div class="image-container">
+                                    <img src="https://www.svgrepo.com/show/381974/completed-checkmark-done-complete.svg" alt="Results Icon">
+                                </div>
+                                <h1 style="color: black;align-items: center;font-size: 30px;margin-bottom: 20px;">Get Results</h1>
+                                <p>Receive a detailed report with diagnosis and actionable treatment recommendations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section detect-disease" id="home1">
+    <div class="container">
+        <h1 style="font-weight: bolder;font-size: 50px;">Plant Disease Detection</h1>
+        <p>Upload a photo of your plant and our AI will analyze it to identify possible diseases and provide treatment recommendations to help your plants thrive.</p>
+        
+        <div class="upload-section">
+            <div class="upload-box">
+                <div class="upload-icon">
+                    <img src="https://img.icons8.com/?size=160&id=oLaAv2dW4yJG&format=png" height="150px" width="150px" style="margin-left: 40%;">
+                </div>
+                <p class="upload-text">Drag and drop your plant image</p>
+                <!-- <p class="upload-subtext">Upload a clear photo of the affected plant part for accurate diagnosis</p> -->
+                <input type="file" id="file-input" class="file-input" accept="image/*">
+                <!-- <label for="file-input" class="choose-file-btn">Choose File</label> -->
+                <section class="prediction" id="predict">
+                    <!-- <h2>Predict Rice Disease</h2> -->
+                    <div class="upload-container">
+                        <input type="file" id="plantImage" accept="image/*">
+                        <button onclick="analyzePlantImage()">Predict</button>
+                  
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="result">
+
+    </div>
+        <div class="tips-section">
+            <h3>Tips for Best Results:</h3>
+            <ul>
+                <li>Take close-up photos of affected areas (leaves, stems, flowers)</li>
+                <li>Ensure good lighting - natural daylight works best</li>
+                <li>Include both healthy and affected plant parts for comparison</li>
+                <li>Take multiple photos from different angles if needed</li>
+            </ul>
+        </div>
+
+        <!-- Integrated Prediction Section -->
+      
+    </div>
+</div>
+<div style="background-color: #265f26; height: 700px; width: 100%;">
+    <div class="section user-says">
+        <div class="container">
+            <h1 style="font-weight: bolder;font-size: 50px; color: #ffd700;">What Our Users Say</h1>
+            <p style="color: #e5d057;">Hear from plant enthusiasts who have successfully used our platform to keep their plants healthy.</p>
+            <div class="carousel">
+                <button class="carousel-btn prev">❮</button>
+                <div class="carousel-container">
+                    <div class="card">
+                        <img class="user-photo" src="data:image/jpeg;base64,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" alt="Sarah Johnson">
+                        <p class="stars">★★★★★</p>
+                        <p>"This app helped me save my tomato plants! The disease detection was spot-on and the treatment suggestions worked perfectly."</p>
+                        <p class="user-info">Ashmit Kesharvani<br>March 15, 2024</p>
+                    </div>
+                    <div class="card">
+                        <img class="user-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkZFTMOD7PeJi7EMi10C9AtFX9buYJ98m1uyW2iovunzwALhGSWCsNoUY&s" alt="Michael Chen">
+                        <p class="stars">★★★★★</p>
+                        <p>"Very useful tool for both amateur and professional gardeners. The AI analysis is quick and accurate."</p>
+                        <p class="user-info">Ayush shah<br>March 20, 2024</p>
+                    </div>
+                    <div class="card">
+                        <img class="user-photo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE8VWqCXEnLzF7Tk63KqTzuX1YxcquPsUpVa7b0TkFK9vPkS4Fzq79K-8&s" alt="Emily Davis">
+                        <p class="stars">★★★★★</p>
+                        <p>"I love how easy it is to use. Just take a photo and get instant results. Has helped me maintain my indoor garden."</p>
+                        <p class="user-info">Krish bhavsar<br>March 25, 2024</p>
+                    </div>
+                </div>
+                <button class="carousel-btn next">❯</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="section categories" id="ab1">
+        <div class="container">
+            <h1 style="font-weight: bolder;font-size: 50px;">Plant Disease Categories</h1>
+            <p>Our system can detect a wide range of plant diseases across different categories.</p>
+            <div class="grid" id="categories-grid">
+                <div class="card">
+                    <img src="https://cdn.shopify.com/s/files/1/0006/5624/4814/files/96256435_s_large.jpg?v=1598636655" alt="Fungal Diseases">
+                    <h3>Fungal Diseases</h3>
+                    <p>Including powdery mildew, rust, and black spot</p>
+                </div>
+                <div class="card">
+                    <img src="https://cdn.britannica.com/06/128606-050-34D3D9C8/Soybean-rust.jpg" alt="Bacterial Infections">
+                    <h3>Bacterial Infections</h3>
+                    <p>Such as bacterial leaf spots and fire blight</p>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHJZGPxsHP97firSh3eryR1zZv0HNXk2uweQ&s" alt="Viral Diseases">
+                    <h3>Viral Diseases</h3>
+                    <p>Like mosaic virus and leaf curl virus</p>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa56KYqGxSgqR301md0hZF7vtnaZgOv9c-Bg&s" alt="Pest Infestations">
+                    <h3>Pest Infestations</h3>
+                    <p>Damage from aphids, mites, and other insects</p>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCawOoBw_nYArDcXRL5gR9mMWXzHT_Qiyq3g&s" alt="Nutrient Deficiencies">
+                    <h3>Nutrient Deficiencies</h3>
+                    <p>Identifying lack of essential nutrients</p>
+                </div>
+                <div class="card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0OoQfcagbw4NAdO_Ceny1umZX1rx8xV-bqg&s" alt="Environmental Stress">
+                    <h3>Environmental Stress</h3>
+                    <p>Issues caused by drought, overwatering, or sunburn</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section team" id="team">
+        <div class="team-container">
+            <h1 class="team-heading">Our Team</h1>
+            <p class="team-subtitle">Meet the experts behind our plant disease detection system</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="photo-frame">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1999/1999625.png" 
+                             alt="Team Member 1" 
+                             class="team-photo">
+                    </div>
+                    <h3 class="member-name">VINIT BARIA</h3>
+                    <p class="member-role">23BCE028</p>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="grid">
+                <div>
+                    <h3>Plant Health</h3>
+                    <p>AI-powered plant disease detection and treatment recommendations.</p>
+                </div>
+                <div>
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#detect">Detect Disease</a>
+                    <a href="#about">About</a>
+                    <a href="#getstarted">Get Started</a>
+                </div>
+                <div>
+                    <h3>Contact</h3>
+                    <p>Email: contact@planthealth.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <p class="copyright">© 2025 Plant Health. All rights reserved.</p>
+        </div>
+    </div>
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60,
+                    behavior: 'smooth'
+                });
+                // Close mobile menu after clicking a link
+                mobileMenu.classList.remove('open');
+            });
+        });
+// Enhanced Carousel Functionality
+const carouselContainer = document.querySelector('.user-says .carousel-container');
+const cards = document.querySelectorAll('.user-says .card');
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
+let currentIndex = 0;
+const totalCards = cards.length;
+
+function updateCarousel() {
+    const cardWidth = cards[0].offsetWidth + 20; // Include margin
+    const visibleCards = window.innerWidth > 768 ? 3 : window.innerWidth > 480 ? 2 : 1;
+    const maxIndex = Math.max(0, totalCards - visibleCards);
+    
+    // Ensure currentIndex stays within bounds
+    currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
+    
+    carouselContainer.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    
+    // Disable buttons at edges
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === maxIndex;
+}
+
+nextBtn.addEventListener('click', () => {
+    const visibleCards = window.innerWidth > 768 ? 3 : window.innerWidth > 480 ? 2 : 1;
+    if (currentIndex < totalCards - visibleCards) {
+        currentIndex++;
+        updateCarousel();
+    }
+});
+
+prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+    }
+});
+
+// Auto-scroll
+let autoScroll = setInterval(() => {
+    const visibleCards = window.innerWidth > 768 ? 3 : window.innerWidth > 480 ? 2 : 1;
+    if (currentIndex < totalCards - visibleCards) {
+        currentIndex++;
+    } else {
+        currentIndex = 0;
+    }
+    updateCarousel();
+}, 5000);
+
+// Pause on hover
+carouselContainer.addEventListener('mouseenter', () => clearInterval(autoScroll));
+carouselContainer.addEventListener('mouseleave', () => {
+    autoScroll = setInterval(() => {
+        const visibleCards = window.innerWidth > 768 ? 3 : window.innerWidth > 480 ? 2 : 1;
+        if (currentIndex < totalCards - visibleCards) {
+            currentIndex++;
+        } else {
+            currentIndex = 0;
+        }
+        updateCarousel();
+    }, 5000);
+});
+
+// Responsive Categories Grid
+function adjustCategoriesGrid() {
+    const grid = document.getElementById('categories-grid');
+    const cards = grid.querySelectorAll('.card');
+    const windowWidth = window.innerWidth;
+
+    cards.forEach(card => {
+        card.style.transition = 'width 0.3s ease, transform 0.3s ease';
+        card.style.height = '300px'; // Fixed height across all breakpoints
+        
+        if (windowWidth > 1024) {
+            // 3 cards per row (2 rows total)
+            card.style.width = '360px';
+            card.style.flex = '0 0 360px';
+        } else if (windowWidth > 768) {
+            // 2 cards per row (3 rows total)
+            card.style.width = '48%';
+            card.style.flex = '0 0 48%';
+        } else {
+            // 1 card per row (6 rows total)
+            card.style.width = '100%';
+            card.style.flex = '0 0 100%';
+        }
+    });
+
+    // Ensure proper row breaking
+    grid.style.display = 'flex';
+    grid.style.flexWrap = 'wrap';
+    grid.style.gap = '20px';
+}
+
+// Initial call
+adjustCategoriesGrid();
+
+// Update on resize with debounce
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(adjustCategoriesGrid, 100);
+});
+
+// Hover effect enhancement
+const cards1 = document.querySelectorAll('.categories .card');
+cards1.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        if (window.innerWidth > 768) {
+            card.style.transform = 'translateY(-5px) scale(1.02)';
+        }
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+    });
+});
+// Update on resize
+window.addEventListener('resize', updateCarousel);
+function analyzePlantImage() {
+        const fileInput = document.getElementById('plantImage');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            document.getElementById('result').innerHTML = '<p>Please select an image first.</p>';
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/predict', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('result').innerHTML = `<p>Error: ${data.error}</p>`;
+            } else {
+                const symptomsList = data.symptoms.map(s => `<li>${s}</li>`).join('');
+                const managementList = data.management.map(m => `<li>${m}</li>`).join('');
+                document.getElementById('result').innerHTML = `
+                    <h3>Predicted Disease: ${data.disease}</h3>
+                    <h4>Description:</h4>
+                    <p>${data.description}</p>
+                    <h4>Symptoms:</h4>
+                    <ul>${symptomsList}</ul>
+                    <h4>Management Suggestions:</h4>
+                    <ul>${managementList}</ul>
+                    <h4>Watch this Video for More Info:</h4>
+                    <iframe width="560" height="315" src="${data.video_suggestion}" frameborder="0" allowfullscreen></iframe>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('result').innerHTML = '<p>An error occurred while analyzing the image.</p>';
+        });
+    }
+
+    // Drag-and-drop functionality
+    const uploadBox = document.querySelector('.upload-box');
+    uploadBox.addEventListener('dragover', (e) => e.preventDefault());
+    uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            document.getElementById('plantImage').files = e.dataTransfer.files;
+            analyzePlantImage();
+        }
+    });
+// Drag and Drop Upload Functionality
+// function analyzePlantImage() {
+//         const fileInput = document.getElementById('plantImage');
+//         if (!fileInput.files || fileInput.files.length === 0) {
+//             document.getElementById('result').innerHTML = '<p>Please select an image first.</p>';
+//             return;
+//         }
+
+//         const formData = new FormData();
+//         formData.append('file', fileInput.files[0]);
+
+//         fetch('/predict', {
+//             method: 'POST',
+//             body: formData
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.error) {
+//                 document.getElementById('result').innerHTML = `<p>Error: ${data.error}</p>`;
+//             } else {
+//                 const symptomsList = data.symptoms.map(s => `<li>${s}</li>`).join('');
+//                 const managementList = data.management.map(m => `<li>${m}</li>`).join('');
+//                 document.getElementById('result').innerHTML = `
+//                     <h3>Predicted Disease: ${data.disease}</h3>
+//                     <h4>Description:</h4>
+//                     <p>${data.description}</p>
+//                     <h4>Symptoms:</h4>
+//                     <ul>${symptomsList}</ul>
+//                     <h4>Management Suggestions:</h4>
+//                     <ul>${managementList}</ul>
+//                 `;
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             document.getElementById('result').innerHTML = '<p>An error occurred while analyzing the image.</p>';
+//         });
+//     }
+
+//     // Drag-and-drop functionality (unchanged)
+//     const uploadBox = document.querySelector('.upload-box');
+//     uploadBox.addEventListener('dragover', (e) => e.preventDefault());
+//     uploadBox.addEventListener('drop', (e) => {
+//         e.preventDefault();
+//         const file = e.dataTransfer.files[0];
+//         if (file && file.type.startsWith('image/')) {
+//             document.getElementById('plantImage').files = e.dataTransfer.files;
+//             analyzePlantImage();
+//         }
+//     });
+// const uploadBox = document.querySelector('.upload-box');
+
+
+// uploadBox.addEventListener('dragover', (e) => {
+//     e.preventDefault();
+//     uploadBox.style.borderColor = '#2e5b2e';
+// });
+
+// uploadBox.addEventListener('dragleave', (e) => {
+//     e.preventDefault();
+//     uploadBox.style.borderColor = '#ccc';
+// });
+
+// uploadBox.addEventListener('drop', (e) => {
+//     e.preventDefault();
+//     uploadBox.style.borderColor = '#ccc';
+//     const files = e.dataTransfer.files;
+//     if (files.length > 0) {
+//         fileInput.files = files;
+//         alert('File dropped! Processing...'); // Replace with actual processing logic
+//     }
+// });
+
+// fileInput.addEventListener('change', (e) => {
+//     if (fileInput.files.length > 0) {
+//         alert('File selected! Processing...'); // Replace with actual processing logic
+//     }
+// });
+
+// function analyzePlantImage() {
+//             const imageInput = document.getElementById("plantImage");
+//             const resultContainer = document.getElementById("result");
+
+//             if (imageInput.files.length === 0) {
+//                 resultContainer.innerHTML = "<p>Please select an image file.</p>";
+//                 resultContainer.classList.remove("show", "error");
+//                 resultContainer.classList.add("show", "error");
+//                 return;
+//             }
+
+//             const formData = new FormData();
+//             formData.append("file", imageInput.files[0]);
+
+//             fetch("http://127.0.0.1:5000/predict", {
+//                 method: "POST",
+//                 body: formData
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 resultContainer.classList.remove("error");
+//                 if (data.error) {
+//                     resultContainer.innerHTML = `<p>Error: ${data.error}</p>`;
+//                     resultContainer.classList.add("show", "error");
+//                 } else {
+//                     resultContainer.innerHTML = `
+//                         <p><strong>Disease:</strong> ${data.disease}</p>
+//                         <p><strong>Suggestion:</strong> ${data.suggestion}</p>
+//                     `;
+//                     resultContainer.classList.add("show");
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error("Error:", error);
+//                 resultContainer.innerHTML = "<p>Failed to connect to the server. Please ensure the server is running.</p>";
+//                 resultContainer.classList.remove("show");
+//                 resultContainer.classList.add("show", "error");
+//             });
+//         }
+
+        // Smooth scrolling for anchor links (if needed)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Optional: Sync the two file inputs (if you want only one upload)
+        const fileInput = document.getElementById('file-input');
+        const plantImage = document.getElementById('plantImage');
+        fileInput.addEventListener('change', () => {
+            plantImage.files = fileInput.files;
+        });
+        plantImage.addEventListener('change', () => {
+            fileInput.files = plantImage.files;
+        });
+// Initial update
+updateCarousel();
+document.addEventListener('DOMContentLoaded', function() {
+    const members = document.querySelectorAll('.team-member');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    members.forEach(member => {
+        observer.observe(member);
+    });
+
+    members.forEach(member => {
+        member.addEventListener('click', function() {
+            this.classList.toggle('active');
+            const description = this.querySelector('.member-role');
+            description.classList.toggle('expanded');
+        });
+    });
+});
+
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    .team-member.animate {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .team-member.active {
+        background-color: #f0fff4;
+    }
+
+    .member-role.expanded {
+        font-weight: 500;
+        color: #48bb78;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+`;
+document.head.appendChild(styleSheet);
+        // Adjust carousel on window resize
+        window.addEventListener('resize', updateCarousel);
+    </script>
+</body>
+</html>

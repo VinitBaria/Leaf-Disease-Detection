@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Rice Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #f4f7f6, #e8f5e9); color: #333; line-height: 1.6; }
+        nav { background: linear-gradient(to right, #2ecc71, #27ae60); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        nav ul { list-style: none; display: flex; justify-content: center; align-items: center; }
+        nav ul li { margin: 0 25px; }
+        nav ul li a { color: #fff; text-decoration: none; font-weight: 600; font-size: 17px; padding: 8px 15px; border-radius: 25px; transition: all 0.3s ease; }
+        nav ul li a:hover { background: #27ae60; color: #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+        .content { max-width: 900px; margin: 100px auto 60px; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); }
+        .content h2 { color: #2ecc71; margin-bottom: 25px; font-size: 28px; text-align: center; }
+        .content p { font-size: 17px; color: #666; text-align: justify; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}#slider">Gallery</a></li>
+            <li><a href="{{ url_for('index') }}#importance">Importance</a></li>
+            <li><a href="{{ url_for('index') }}#predict">Predict</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <h2>Contact Us</h2>
+        <p>For support or inquiries, reach out to us at: <strong>support@ricediseasepredictor.com</strong></p>
+        <p>Phone: +1-123-456-7890</p>
+    </div>
+</body>
+</html>
